@@ -1,11 +1,7 @@
-
-
-console.log('wanko');
-
 const OrganizationIdPage = () => {
     
     return(
-        <div className="mt-20">
+        <div className="mt-20 ml-40">
             organization page!
         </div>
     );

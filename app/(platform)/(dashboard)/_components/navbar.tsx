@@ -1,21 +1,24 @@
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs"
+
+import { Plus } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { Button } from "@/components/ui/button"
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs"
-import { Plus } from "lucide-react"
+import { MobileSidebar } from "./mobile-sidebar"
 
 export const Navbar = () => {
     return(
-        <nav className="fixed z-50 top-0 w-full h-14 border-b shadow-sm bg-neutral-50">
-            {/* TODO: Mobile Navbar */}
-            <div className="flex items-center gap-x-4 ">
-                <div>
+        <nav className="flex fixed z-50 top-0 px-7 w-full h-14 border-b shadow-sm bg-neutral-50 items-center 2xl:px-52">
+            <MobileSidebar />
+            <div className="flex items-center gap-x-4 w-full mb-3">
+                <div className="hidden md:flex">
                     <Logo/>
                 </div>
-                <Button size="sm" className="rounded-sm hidden md:block h-auto py-1.5 px-2 mt-3">
+                
+                <Button size="sm" className="rounded-sm hidden md:block h-auto py-1.5 px-2" variant='primary'>
                     Create
                 </Button>
-                <Button size="sm" className="rounded-sm block h-auto py-1.5 px-2 mt-3.5 md:hidden">
-                    <Plus className="h-4 w-4"/>
+                <Button size="sm" variant='primary' className="rounded-sm block h-auto py-1.5 px-2 mt-3.5 md:hidden">
+                    <Plus className="h-5 w-5"/>
                 </Button>
                 <div className="ml-auto flex items-center gap-x-2 mt-2">
                     <OrganizationSwitcher
@@ -29,6 +32,10 @@ export const Navbar = () => {
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
+                                },
+                                avatarBox: {
+                                    height: 35,
+                                    width: 35   
                                 }
                             }
                         }}
@@ -38,8 +45,8 @@ export const Navbar = () => {
                         appearance={{
                             elements: {
                                 avatarBox: {
-                                    height: 30,
-                                    width: 30,
+                                    height: 35,
+                                    width: 35,
                                 }
                             }
                         }}
