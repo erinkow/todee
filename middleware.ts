@@ -7,7 +7,7 @@ const isProtectedUserRoute = createRouteMatcher([ '/select-org' ])
 
 const isProtectedOrgRoute = createRouteMatcher([ '/organization/:id' ])
 export default clerkMiddleware((auth, req: NextRequest) => {
-  const { userId, sessionClaims, redirectToSignIn } = auth();
+  const { userId, sessionClaims, redirectToSignIn, orgId } = auth();
   
 
   //サインイン済み、組織選ページにアクセスしようとした場合
@@ -20,6 +20,15 @@ export default clerkMiddleware((auth, req: NextRequest) => {
     return redirectToSignIn({ returnBackUrl: req.url })
   }
 
+  if(orgId && isPublicRoute(req)) {
+    const orgUrl = new URL(`/organization/${orgId}`, req.url)
+    return NextResponse.redirect(orgUrl);
+  }
+
+  if(userId && !orgId && isProtectedOrgRoute(req)) {
+    const selectOrgUrl = new URL(`/select-org}`, req.url)
+    return NextResponse.redirect(selectOrgUrl);
+  }
   // さいん済み、組織選択まだ
   // if(userId && !sessionClaims?.metadata?.onboardingComplete) {
       // 非パブリックルート
@@ -33,7 +42,7 @@ export default clerkMiddleware((auth, req: NextRequest) => {
   if(userId && sessionClaims?.metadata?.onboardingComplete) {
     // パブリックルート、またはselect-orgページへアクセスしようとした場合
     if(isPublicRoute(req) || (isProtectedUserRoute(req))) {
-      const orgUrl = new URL('/organization/:id', req.url)
+      const orgUrl = new URL(`/organization/${orgId}`, req.url)
       return NextResponse.redirect(orgUrl);
     }
   }
