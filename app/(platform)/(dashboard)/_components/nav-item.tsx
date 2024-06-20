@@ -47,7 +47,7 @@ export const NavItem = ({
     {
       label: 'Setting',
       icon: <Settings2 className='h-4 w-4 mr-2'/>,
-      href: `/organization/${organization.id}/setting`,
+      href: `/organization/${organization.id}/settings`,
     },
     {
       label: 'Billing',
