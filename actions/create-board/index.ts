@@ -19,6 +19,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     }
     const canCreate = await hasAvailableCount();
 
+    if (!canCreate) {
+        return{
+            error: 'You have reached your limit of free boards. Please upgrade to Pro.'
+        }
+    }
+
     const { title, image } = data;
 
     const [
@@ -27,7 +33,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         imageFullUrl,
         imageLinksHTML,
         imageUserName
-    ] = image.split('|');
+    ] = image.split('|').map(str => str.trim());
 
     console.log([
         imageId,
@@ -58,7 +64,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
             }
         });
 
-        incrementAvailableCount();
+        await incrementAvailableCount();
 
         if(board) {
             revalidatePath(`/board/${board.id}`)

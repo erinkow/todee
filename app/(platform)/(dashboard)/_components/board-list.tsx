@@ -13,7 +13,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 export const BoardList = async () => {
   const { orgId } = auth();
 
+  console.log(orgId)
+
   if (!orgId) {
+    console.log('no orgId found.')
     return redirect('/select-org');
   }
 
