@@ -5,6 +5,7 @@ import {
     SignedOut,
     UserButton
 } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const PlatformLayout = ({
     children
@@ -18,6 +19,7 @@ const PlatformLayout = ({
             signInFallbackRedirectUrl="/select-org"
             signUpFallbackRedirectUrl="/sign-in"
         >
+            <Toaster/>
             {/* <SignedOut>
                 <SignInButton />
             </SignedOut>
@@ -25,6 +27,7 @@ const PlatformLayout = ({
                 <UserButton/>
             </SignedIn> */}
             {children}
+            
         </ClerkProvider>
     )
 }
