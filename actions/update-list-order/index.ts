@@ -1,44 +1,51 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
-import { InputType, ReturnType } from "./types";
-import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
-const handler = async(data: InputType): Promise<ReturnType> => {
-    const { userId, orgId } = auth();
+import { db } from "@/lib/db";
+
+import { InputType, ReturnType } from "./types";
+import { createSafeAction } from "@/lib/create-safe-action";
+import { UpdateListOrder } from "./schema";
+
+const handler = async (data: InputType): Promise<ReturnType> => {
+    const {userId, orgId} = auth();
 
     if(!userId || !orgId) {
-        return{
-            error: 'Unauthrised'
-        };
+        return {
+            error: 'Unauthorised',
+        }
     }
 
-    const { items, boardId } = data
+    const { items, boardId } = data;
     let lists;
 
     try {
-        const transaction = items.map(list => 
+        const transaction = items.map(list => (
             db.list.update({
                 where: {
                     id: list.id,
                     board: {
-                        orgId
+                        orgId,
                     },
                 },
                 data: {
                     order: list.order,
                 }
             })
-        )
+        ));
 
         lists = await db.$transaction(transaction);
+
     } catch (error) {
         return {
-            error: 'Failed to reorder'
+            error: 'Failed to update',
         }
     }
 
     revalidatePath(`/board/${boardId}`);
-    return{data: lists}
+    return { data: lists };
 }
+
+export const updateListOrder = createSafeAction(UpdateListOrder, handler);
