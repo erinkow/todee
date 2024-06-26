@@ -7,6 +7,9 @@ import {
 } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 
+import { ModalProvider } from "@/components/providers/moda-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
+
 const PlatformLayout = ({
     children
 }: {
@@ -19,14 +22,17 @@ const PlatformLayout = ({
             signInFallbackRedirectUrl="/select-org"
             signUpFallbackRedirectUrl="/sign-in"
         >
-            <Toaster/>
-            {/* <SignedOut>
-                <SignInButton />
-            </SignedOut>
-            <SignedIn>
-                <UserButton/>
-            </SignedIn> */}
-            {children}
+            <QueryProvider>
+                <Toaster/>
+                <ModalProvider/>
+                {/* <SignedOut>
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    <UserButton/>
+                </SignedIn> */}
+                {children}
+            </QueryProvider>
             
         </ClerkProvider>
     )
