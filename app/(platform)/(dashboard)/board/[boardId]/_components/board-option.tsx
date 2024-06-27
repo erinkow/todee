@@ -7,7 +7,7 @@ import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/compone
 import { Button } from "@/components/ui/button";
 
 import { useAction } from "@/hooks/use-action";
-import { deleteBoard } from "@/actions/delete-board/handler";
+import { deleteBoard } from "@/actions/delete-board";
 
 interface BoardOptionProps {
     id: string;

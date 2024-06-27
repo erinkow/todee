@@ -1,5 +1,8 @@
 "use client";
 
+import { toast } from "sonner";
+
+import { useParams } from "next/navigation";
 import { ElementRef, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -10,8 +13,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { CardWithList } from "@/types"
 import { useAction } from "@/hooks/use-action";
 import { updateCard } from "@/actions/update-card";
-import { toast } from "sonner";
-import { useParams } from "next/navigation";
 
 interface HeaderProps {
     data: CardWithList
@@ -28,6 +29,11 @@ export const Header = ({
             queryClient.invalidateQueries({
                 queryKey: ['card', data.id]
             });
+
+            queryClient.invalidateQueries({
+                queryKey: ['card-logs', data.id]
+            });
+            
             toast.success(`Rename to "${data.title}"`);
             setTitle(data.title);
         },
@@ -79,9 +85,9 @@ export const Header = ({
 
 Header.Skeleton = function () {
     return(
-        <div className="flex text-start gap-x-3 mb-6 w-full">
+        <div className="flex items-start gap-x-3 mb-6 w-full">
             <Skeleton className="h-6 w-6 mt-1 text-neutral-200"/>
-            <div>
+            <div className="w-full">
                 <Skeleton className="h-24 w-6 mt-1 text-neutral-200"/>
                 <Skeleton className="h-12 w-4 text-neutral-200"/>
             </div>
