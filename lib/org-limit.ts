@@ -1,13 +1,12 @@
 import { auth } from "@clerk/nextjs/server"
+import { db } from "./db";
+import { MAX_FREE_BOARDS } from "@/constants/boards";
 
-import { db } from "@/lib/db";
-import { MAX_FREE_BOARDS } from "./boards";
-
-export const incrementAvailableCount = async () => {
+// increase the used number of the board
+export const incrementAvailableCount = async() => {
     const { orgId } = auth();
-
     if(!orgId) {
-        throw new Error('Unauthorized');
+        throw new Error('Unauthorised');
     }
 
     const orgLimit = await db.orgLimit.findUnique({
@@ -21,14 +20,14 @@ export const incrementAvailableCount = async () => {
         });
     } else {
         await db.orgLimit.create({
-            data: { orgId, count: 1}
+            data: { orgId, count: 1 }
         });
     }
-};
+}
 
-export const decreaseAvailableCount = async () => {
+// decrease the used number of the board
+export const decreaseAvailableCount = async() => {
     const { orgId } = auth();
-
     if(!orgId) {
         throw new Error('Unauthorised');
     }
@@ -40,24 +39,24 @@ export const decreaseAvailableCount = async () => {
     if(orgLimit) {
         await db.orgLimit.update({
             where: { orgId },
-            data: { count: orgLimit.count > 0 ? orgLimit.count - 1 : 0}
+            data: { count: orgLimit.count > 0 ? orgLimit.count - 1 : 0 }
         });
     } else {
         await db.orgLimit.create({
-            data: { orgId, count: 0}
-        });
+            data: { orgId, count: 0 }
+        })
     }
-};
+}
 
-export const hasAvailableCount = async () => {
+// boolean if there is still available number of the board
+export const hasAvailableCount = async() => {
     const { orgId } = auth();
-
     if(!orgId) {
         throw new Error('Unauthorised');
     }
 
     const orgLimit = await db.orgLimit.findUnique({
-        where: { orgId }
+        where: { orgId },
     });
 
     if(!orgLimit || orgLimit.count < MAX_FREE_BOARDS) {
@@ -67,15 +66,15 @@ export const hasAvailableCount = async () => {
     }
 }
 
+// get current-used-number of the board
 export const getAvailableCount = async () => {
     const { orgId } = auth();
-
     if(!orgId) {
         return 0;
     }
 
     const orgLimit = await db.orgLimit.findUnique({
-        where: { orgId }
+        where: { orgId },
     });
 
     if(!orgLimit) {
