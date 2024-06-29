@@ -16,14 +16,21 @@ interface SidebarProps {
   storageKey?: string;
 }
 
-export const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
+export const Sidebar = ({ 
+  storageKey = 't-sidebar-state' 
+}: SidebarProps) => {
   const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
     storageKey,
     {}
   );
-  const { organization: activeOrganization, isLoaded: isLoadedOrg } =
-    useOrganization();
-  const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
+
+  const {
+    organization: activeOrganization, isLoaded: isLoadedOrg
+  } = useOrganization();
+
+  const {
+    userMemberships, isLoaded: isLoadedOrgList
+  } = useOrganizationList({
     userMemberships: { infinite: true },
   });
 
@@ -44,6 +51,7 @@ export const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
     }));
   };
 
+
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
@@ -62,7 +70,9 @@ export const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
   return (
     <>
       <div className='font-medium text-xs flex items-center mb-1'>
-        <span className='pl-4'>Workspace</span>
+        <span className='pl-4'>
+          Workspace
+        </span>
         <Button
           asChild
           type='button'
@@ -75,7 +85,11 @@ export const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
           </Link>
         </Button>
       </div>
-      <Accordion type='multiple' defaultValue={defaultAccordionValue} className='space-y-2'>
+      <Accordion
+        type='multiple' 
+        defaultValue={defaultAccordionValue} 
+        className='space-y-2'
+      >
         {userMemberships.data.map(({ organization }) => (
           <NavItem
             key={organization.id}
@@ -83,7 +97,7 @@ export const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
             isExpanded={expanded[organization.id]}
             organization={organization as Organization}
             onExpand={onExpand}
-          ></NavItem>
+          />
         ))}
       </Accordion>
     </>
