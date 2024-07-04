@@ -1,3 +1,4 @@
+"use client";
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import { ElementRef, useRef, useState } from "react";
