@@ -59,7 +59,7 @@ export const BoardTitleForm = ({
 
     if(isEditing) {
         return(
-            <form action={onSubmit} ref={formRef} className="flex items-center gap-x-2">
+            <form action={onSubmit} ref={formRef} className="flex items-center gap-x-2 pt-3">
                 <FormInput
                     onBlur={onBlur}
                     ref={inputRef}

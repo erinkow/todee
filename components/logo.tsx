@@ -12,10 +12,11 @@ export const Logo = () => {
         <Link href="/">
             <div className="hover:opacity-75 transition items-center gap-x-2 hidden md:flex">
                 <Image
-                    src="/flame.svg"
+                    src="/logo_w_only_title.svg"
                     alt="Logo"
-                    height={30}
-                    width={30}
+                    height={60}
+                    width={60}
+                    className="rounded-md"
                 />
                 <p className={cn(
                     "text-lg text-neutral-700 pt-1",

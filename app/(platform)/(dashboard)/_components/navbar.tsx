@@ -8,14 +8,14 @@ import { FormPopover } from "@/components/form/form-popover"
 
 export const Navbar = () => {
     return(
-        <nav className="flex fixed z-50 top-0 px-7 w-full h-14 border-b shadow-sm bg-neutral-50 items-center 2xl:px-52">
+        <nav className="flex fixed z-50 top-0 px-7 w-full h-15 border-b shadow-sm bg-neutral-50 items-center 2xl:px-52">
             <MobileSidebar />
-            <div className="flex items-center gap-x-4 w-full mb-3">
-                <div className="hidden md:flex">
+            <div className="flex items-center gap-x-10 w-full mb-3">
+                <div className="hidden md:flex mt-3">
                     <Logo/>
                 </div>
                 <FormPopover align="start" side="bottom" sideOffset={18}>
-                    <Button size="sm" className="rounded-sm hidden md:block h-auto py-1.5 px-2" variant='primary'>
+                    <Button size="sm" className="rounded-sm hidden md:block h-auto py-1.5 px-2 mt-3 bg-neutral-800">
                         Create
                     </Button>
                 </FormPopover>
@@ -24,7 +24,7 @@ export const Navbar = () => {
                         <Plus className="h-5 w-5"/>
                     </Button>
                 </FormPopover>
-                <div className="ml-auto flex items-center gap-x-2 mt-2">
+                <div className="ml-auto flex items-center gap-x-2 mt-3">
                     <OrganizationSwitcher
                         hidePersonal
                         afterCreateOrganizationUrl="/organization/:id"

@@ -9,12 +9,12 @@ export const Navbar = () => {
                 <Logo/>
             </div>
             <div>
-                <Button size="sm" className="mr-4 w-20" asChild>
+                <Button size="sm" className="mr-4 w-20 bg-neutral-700" asChild>
                     <Link href="/sign-up">
                         Sign up
                     </Link>
                 </Button>
-                <Button size="sm" className="w-20" asChild>
+                <Button size="sm" className="w-20 bg-neutral-700" asChild>
                     <Link href='/sign-in'>
                         Sign in
                     </Link>

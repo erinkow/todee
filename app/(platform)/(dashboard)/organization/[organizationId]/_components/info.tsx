@@ -28,7 +28,7 @@ export const Info = ({
                 />
             </div>
             <div className="space-y-1">
-                <p className="font-semibold text-xl">
+                <p className="font-semibold text-xl text-neutral-700">
                     {organization?.name}
                 </p>
                 <div className="flex items-center text-xs text-muted-foreground">
