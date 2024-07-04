@@ -5,6 +5,7 @@ import { AuditLog } from "@prisma/client";
 import { ActivityIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ActivityItem } from "@/components/activity-item";
+import React from "react";
 
 interface ActivityProps {
     items: AuditLog[];
@@ -33,7 +34,7 @@ export const Activity = ({
     )
 }
 
-Activity.Skeleton = function () {
+const ActivitySkeleton: React.FC = () => {
     return(
         <div className="flex items-start gap-x-3 w-full">
             <Skeleton className="h-6 w-6 bg-neutral-200"/>
@@ -44,3 +45,6 @@ Activity.Skeleton = function () {
         </div>
     );
 };
+
+ActivitySkeleton.displayName = "Activity.Skeleton";
+Activity.Skeleton = ActivitySkeleton;

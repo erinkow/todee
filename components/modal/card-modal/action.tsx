@@ -13,12 +13,13 @@ import { useAction } from "@/hooks/use-action";
 import { useCardModal } from "@/hooks/use-card-modal";
 import { copyCard } from "@/actions/copy-card";
 import { deleteCard } from "@/actions/delete-card";
+import React from "react";
 
 interface ActionsProps {
     data: CardWithList
 }
 
-export const Actions = ({
+const Actions = ({
     data
 }: ActionsProps) => {
     const cardModal = useCardModal();
@@ -91,7 +92,9 @@ export const Actions = ({
     );
 };
 
-Actions.Skeleton = function () {
+Actions.displayName = "Actions"; //Vercelを通してReactから指摘
+
+const ActionsSkeleton: React.FC = () => {
     return(
         <div className="space-y-2 mt-2">
             <Skeleton className="w-20 h-4 bg-neutral-200"/>
@@ -100,3 +103,8 @@ Actions.Skeleton = function () {
         </div>
     )
 }
+
+ActionsSkeleton.displayName = "Actions.Skeleton"; //Vercelを通してReactから指摘
+Actions.Skeleton = ActionsSkeleton;
+
+export default Actions;
