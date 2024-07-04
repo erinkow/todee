@@ -33,7 +33,7 @@ export const SubscriptionButton = ({
     }
     return(
         <Button
-            variant='primary'
+            className="bg-neutral-700"
             onClick={onClick}
             disabled={isLoading}
         >
