@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 
 import { useParams } from "next/navigation";
-import { ElementRef, useRef, useState } from "react";
+import React, { ElementRef, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { Layout } from "lucide-react";
@@ -83,7 +83,7 @@ export const Header = ({
     )
 }
 
-Header.Skeleton = function () {
+const HeaderSkeleton: React.FC = () => {
     return(
         <div className="flex items-start gap-x-3 mb-6 w-full">
             <Skeleton className="h-6 w-6 mt-1 text-neutral-200"/>
@@ -94,3 +94,6 @@ Header.Skeleton = function () {
         </div>
     )
 }
+
+HeaderSkeleton.displayName = "Header.Skeleton";
+Header.Skeleton = HeaderSkeleton;
