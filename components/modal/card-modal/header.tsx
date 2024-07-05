@@ -76,7 +76,7 @@ export const Header = ({
                     />
                 </form>
                 <p className="text-sm text-muted-foreground">
-                    in list "<span>{data.list.title}</span>"
+                    in list <span>"{data.list.title}"</span>
                 </p>
             </div>
         </div>
