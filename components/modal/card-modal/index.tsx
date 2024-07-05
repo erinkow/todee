@@ -11,7 +11,7 @@ import { fetcher } from "@/lib/fetcher";
 import { CardWithList } from "@/types";
 import { Header } from "./header";
 import { Description } from "./description";
-import { Actions } from "./action";
+import Actions from "./action";
 import { Activity } from "./activity";
 
 export const CardModal = () => {
