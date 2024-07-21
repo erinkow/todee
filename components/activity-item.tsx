@@ -21,7 +21,8 @@ export const ActivityItem = ({
             <div className="flex flex-col space-y-0.5">
                 <p className="font-semibold lowercase text-neutral-700">
                     <span className="font-semibold lowercase text-neutral-700">
-                        {data.userName}
+                        {/* {data.userName} */}
+                        {data.userId}
                     </span> {generateLogMessage(data)}
                 </p>
                 <p className="text-xs text-muted-foreground">
