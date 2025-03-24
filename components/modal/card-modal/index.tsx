@@ -19,14 +19,20 @@ export const CardModal = () => {
     const isOpen = useCardModal(state => state.isOpen);
     const onClose = useCardModal(state => state.onClose);
 
+    //id の状態をログに出して確認
+    console.log("querying card id:", id);
+
     const { data: cardData } = useQuery<CardWithList>({
         queryKey: ['card', id],
         queryFn: () => fetcher(`/api/cards/${id}`),
+        enabled: !!id, // ← id が falsy（undefined, null, "" など）のときは実行しない
+
     });
 
     const {data: auditLogData} = useQuery<AuditLog[]>({
         queryKey: ['card-logs', id],
-        queryFn: () => fetcher(`/api/cards/${id}/logs`)
+        queryFn: () => fetcher(`/api/cards/${id}/logs`),
+        enabled: !!id,
     })
 
     return(

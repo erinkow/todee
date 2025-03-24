@@ -14,7 +14,13 @@ export async function GET(
             return new NextResponse('Unauthorised', {status: 401});
         }
 
-        const card = await db.card.findUnique({
+        const cardId = params.cardId;
+        if (!cardId || cardId === "undefined") {
+        return new NextResponse("Invalid Card ID", { status: 400 });
+        }
+
+        // const card = await db.card.findUnique({
+        const card = await db.card.findFirst({
             where: {
                 id: params.cardId,
                 list: {
